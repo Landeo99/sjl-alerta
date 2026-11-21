@@ -1,0 +1,16 @@
+# Dependabot: revisa cada semana si hay versiones con vulnerabilidades y propone actualizaciones.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: test
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: test
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
