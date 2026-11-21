@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reportar incidente | SJL Alerta</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="barra">
+    <a href="index.html" class="logo">🚨 SJL Alerta</a>
+    <nav id="menu"></nav>
+  </header>
+  <main class="contenedor">
+    <section class="formulario-caja ancho">
+      <h1>Reportar un incidente</h1>
+      <p id="mensaje" class="mensaje" hidden></p>
+      <form id="form-reporte" novalidate>
+        <label for="tipo">Tipo de incidente</label>
+        <select id="tipo" name="tipo"><option value="">Selecciona...</option></select>
+        <small class="error-campo" data-error="tipo"></small>
+        <label for="zona">Zona</label>
+        <select id="zona" name="zona"><option value="">Selecciona...</option></select>
+        <small class="error-campo" data-error="zona"></small>
+        <div class="fila">
+          <div>
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" name="fecha">
+            <small class="error-campo" data-error="fecha"></small>
+          </div>
+          <div>
+            <label for="hora">Hora</label>
+            <input type="time" id="hora" name="hora">
+            <small class="error-campo" data-error="hora"></small>
+          </div>
+        </div>
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" name="descripcion" rows="3" maxlength="500" placeholder="¿Qué ocurrió?"></textarea>
+        <small class="error-campo" data-error="descripcion"></small>
+        <label>Ubicación (opcional): haz clic en el mapa</label>
+        <div id="mapa-reporte" class="mapa mapa-chico"></div>
+        <small class="error-campo" data-error="ubicacion"></small>
+        <label class="check"><input type="checkbox" id="anonimo" name="anonimo"> Enviar como anónimo (tus datos no se mostrarán a otros usuarios)</label>
+        <button type="submit" class="btn">Enviar reporte</button>
+      </form>
+    </section>
+  </main>
+  <footer class="pie">SJL Alerta · Reportes ciudadanos para un San Juan de Lurigancho más seguro</footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script type="module" src="js/ui/reportar.js"></script>
+</body>
+</html>
