@@ -1,0 +1,13 @@
+{
+    "name": "sjl-alerta",
+    "version": "1.0.0",
+    "description": "Plataforma de reportes ciudadanos y mapa de zonas de riesgo para San Juan de Lurigancho",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "test": "vitest run"
+    },
+    "devDependencies": {
+        "vitest": "^5.1.1"
+    }
+}
