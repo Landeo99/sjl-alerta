@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "test": "vitest run --reporter=verbose",
-        "test:ci": "vitest run --reporter:verbose --reporter=junit --outputFile.junit=reportes/junit.xml",
+        "test:ci": "vitest run --reporter=verbose --reporter=junit --outputFile.junit=reportes/junit.xml",
         "lint": "eslint ."
     },
     "devDependencies": {
