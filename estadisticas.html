@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estadísticas | SJL Alerta</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="barra">
+    <a href="index.html" class="logo">🚨 SJL Alerta</a>
+    <nav id="menu"></nav>
+  </header>
+  <main class="contenedor">
+    <section class="hero">
+      <h1>Estadísticas de incidentes</h1>
+      <p id="total" class="nota"></p>
+    </section>
+    <section class="tarjetas">
+      <article class="tarjeta"><h2>Por tipo de incidente</h2><div id="grafico-tipo"></div></article>
+      <article class="tarjeta"><h2>Por franja horaria</h2><div id="grafico-franja"></div></article>
+    </section>
+    <section class="tarjeta espacio"><h2>Por zona</h2><div id="grafico-zona"></div></section>
+  </main>
+  <footer class="pie">SJL Alerta · Reportes ciudadanos para un San Juan de Lurigancho más seguro</footer>
+  <script type="module" src="js/ui/estadisticas.js"></script>
+</body>
+</html>

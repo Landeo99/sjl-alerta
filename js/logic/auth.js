@@ -11,7 +11,10 @@ export const ROLES = {
 // Las páginas que no están aquí son públicas.
 export const PERMISOS = {
   perfil: [ROLES.VECINO, ROLES.SERENAZGO, ROLES.ADMIN],
+  reportar: [ROLES.VECINO],
+  'mis-reportes': [ROLES.VECINO],
   panel: [ROLES.SERENAZGO, ROLES.ADMIN],
+  estadisticas: [ROLES.ADMIN],
 };
 
 export const MENSAJES = {
