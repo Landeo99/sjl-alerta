@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi perfil | SJL Alerta</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="barra">
+    <a href="index.html" class="logo">🚨 SJL Alerta</a>
+    <nav id="menu"></nav>
+  </header>
+  <main class="contenedor">
+    <section class="formulario-caja">
+      <h1>Mi perfil</h1>
+      <p id="mensaje" class="mensaje" hidden></p>
+      <form id="form-perfil" novalidate>
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" disabled>
+        <label for="rol">Rol</label>
+        <input type="text" id="rol" name="rol" disabled>
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <small class="error-campo" data-error="nombre"></small>
+        <label for="telefono">Teléfono (opcional)</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="987654321">
+        <small class="error-campo" data-error="telefono"></small>
+        <button type="submit" class="btn">Guardar</button>
+      </form>
+    </section>
+  </main>
+  <footer class="pie">SJL Alerta · Reportes ciudadanos para un San Juan de Lurigancho más seguro</footer>
+  <script type="module" src="js/ui/perfil.js"></script>
+</body>
+</html>
