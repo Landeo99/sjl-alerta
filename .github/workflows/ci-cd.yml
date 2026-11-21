@@ -1,0 +1,134 @@
+# Pipeline CI/CD con seguridad integrada (DevSecOps) - SJL Alerta
+# Etapas: build -> test -> security -> deploy
+name: CI/CD SJL Alerta
+
+on:
+  push:
+    branches: [main, test]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  # 1. BUILD: instala dependencias exactas (package-lock.json) y revisa la calidad del código
+  build:
+    name: 1. Build y análisis de código (ESLint)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Revisar calidad del código (ESLint)
+        run: npm run lint
+
+  # 2. TEST: pruebas unitarias automatizadas con Vitest
+  test:
+    name: 2. Pruebas automatizadas (Vitest)
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar pruebas unitarias
+        run: npm run test:ci
+
+      - name: Guardar reporte de pruebas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-pruebas
+          path: reportes/junit.xml
+
+  # 3. SECURITY: dependencias vulnerables, secretos expuestos y análisis estático (SAST)
+  security:
+    name: 3. Análisis de seguridad (npm audit, Gitleaks, CodeQL)
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    steps:
+      - name: Descargar el código (con historial para Gitleaks)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Análisis de dependencias (npm audit)
+        run: npm audit --audit-level=high
+
+      - name: Escaneo de secretos (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: SAST - Inicializar CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: javascript
+
+      - name: SAST - Analizar el código con CodeQL
+        uses: github/codeql-action/analyze@v4
+
+  # 4. DEPLOY: publica en GitHub Pages solo cuando el código llega a main
+  deploy:
+    name: 4. Despliegue en GitHub Pages
+    needs: [test, security]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      - name: Preparar los archivos del sitio (solo lo necesario)
+        run: |
+          mkdir _site
+          cp -r *.html css js _site/
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir el sitio
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Publicar en GitHub Pages
+        id: despliegue
+        uses: actions/deploy-pages@v4

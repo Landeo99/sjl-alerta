@@ -1,0 +1,11 @@
+# Configuración de Gitleaks (escaneo de secretos)
+title = "Gitleaks - SJL Alerta"
+
+[extend]
+useDefault = true
+
+# Excepción documentada: js/data/usuarios.js contiene hashes SHA-256 de cuentas de demostración.
+# No son secretos reales (las credenciales de prueba están publicadas en el README).
+[allowlist]
+description = "Hashes de usuarios de demostración"
+paths = ['''js/data/usuarios\.js''']
