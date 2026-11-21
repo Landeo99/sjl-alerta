@@ -5,7 +5,11 @@ import { puedeAcceder, paginaInicio, MENSAJES } from '../logic/auth.js';
 // Opciones del menú y qué roles las ven (null = todos, incluso sin sesión).
 const OPCIONES_MENU = [
   { texto: 'Inicio', href: 'index.html', roles: null },
+  { texto: 'Mapa de riesgo', href: 'mapa.html', roles: null },
+  { texto: 'Reportar', href: 'reportar.html', roles: ['vecino'] },
+  { texto: 'Mis reportes', href: 'mis-reportes.html', roles: ['vecino'] },
   { texto: 'Panel', href: 'panel.html', roles: ['serenazgo', 'admin'] },
+  { texto: 'Estadísticas', href: 'estadisticas.html', roles: ['admin'] },
   { texto: 'Mi perfil', href: 'perfil.html', roles: ['vecino', 'serenazgo', 'admin'] },
 ];
 

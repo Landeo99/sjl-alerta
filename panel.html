@@ -16,7 +16,17 @@
     <section class="hero">
       <h1>Panel de atención</h1>
       <p id="bienvenida"></p>
-      <p class="nota">Aquí el serenazgo y la comisaría gestionarán los reportes ciudadanos.</p>
+      <div class="filtros">
+        <label>Estado <select id="filtro-estado"><option value="">Todos</option></select></label>
+        <button id="exportar" class="btn btn-secundario">Exportar CSV</button>
+        <span id="conteo" class="nota"></span>
+      </div>
+    </section>
+    <section class="caja-tabla">
+      <table class="tabla">
+        <thead><tr><th>Código</th><th>Estado</th><th>Tipo</th><th>Zona</th><th>Fecha y hora</th><th>Autor</th><th>Descripción</th><th>Acción</th></tr></thead>
+        <tbody id="tabla-reportes"></tbody>
+      </table>
     </section>
   </main>
   <footer class="pie">SJL Alerta · Reportes ciudadanos para un San Juan de Lurigancho más seguro</footer>
